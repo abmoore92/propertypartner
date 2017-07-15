@@ -2,6 +2,7 @@ import pandas as pd
 import time
 import datetime
 import os
+import sys
 
 def write_today(df):
     date = time.strftime("%Y-%m-%d")
@@ -30,6 +31,10 @@ df['last_updated'] = read_datasource_time(source)
 #datetime column of the time when the script is run
 df['retrieve_time'] = datetime.datetime.now()
 
-#write this entry
-filename = 'Properties_All.csv'
+#use command line input, or use default filename
+if len(sys.argv) > 1:
+    filename = sys.argv[1]
+else:
+    filename = 'Properties_All.csv'
+
 append_now(df,filename)
